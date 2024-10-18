@@ -1,5 +1,5 @@
 import { eq } from 'drizzle-orm'
-import { db } from '~/server/database'
+import { useDb } from '~/server/database'
 import { todos } from '~/server/database/schema'
 
 export default defineEventHandler(async (event) => {
@@ -9,7 +9,7 @@ export default defineEventHandler(async (event) => {
     try {
         // 获取前端传递的数据
         const data = await readBody(event)
-        const res = await db.update(todos).set({
+        const res = await useDb().update(todos).set({
             title: data.newTodo,
             description: "hh",
         }).where(eq(todos.id, data.item))

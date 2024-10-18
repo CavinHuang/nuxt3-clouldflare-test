@@ -1,4 +1,4 @@
-import { db } from '~/server/database'
+import { useDb } from '~/server/database'
 import { todos } from '~/server/database/schema'
 import { eq } from 'drizzle-orm'
 
@@ -9,7 +9,7 @@ export default defineEventHandler(async (event) => {
     try {
         // 获取前端传递的数据
         const data = await readBody(event)
-        const deleteTodo = await db.delete(todos).where(eq(todos.id, data.item))
+        const deleteTodo = await useDb().delete(todos).where(eq(todos.id, data.item))
         return { deleteTodo }
     } catch (error) {
         console.error('数据库操作出现异常:', error)

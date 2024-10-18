@@ -1,4 +1,4 @@
-import { db } from '~/server/database'
+import { useDb } from '~/server/database'
 import { todos } from '~/server/database/schema'
 
 export default defineEventHandler(async (event) => {
@@ -8,7 +8,7 @@ export default defineEventHandler(async (event) => {
     try {
         // 获取前端传递的数据
         const data = await readBody(event)
-        const res = await db.insert(todos).values({
+        const res = await useDb().insert(todos).values({
             title: data.newTodo,
         })
         return { res }
