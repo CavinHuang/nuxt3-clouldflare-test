@@ -1,11 +1,12 @@
-import { PrismaClient } from '@prisma/client'
+// import { PrismaClient } from '@prisma/client'
+import { db } from '~/server/database'
+import { todos } from '~/server/database/schema'
 
 export default defineEventHandler(async (event) => {
     // ... 在这里做任何你想做的事情
-    const prisma = new PrismaClient()
     try {
         // 查询待办事项清单
-        const todoList = await prisma.todo.findMany({})
+        const todoList = await db.select().from(todos)
         return todoList
     } catch (error) {
         console.error('数据库操作出现异常:', error)
@@ -13,7 +14,6 @@ export default defineEventHandler(async (event) => {
         throw error
     } finally {
         // 确保断开与数据库的连接
-        await prisma.$disconnect()
+        // await prisma.$disconnect()
     }
 })
-  
