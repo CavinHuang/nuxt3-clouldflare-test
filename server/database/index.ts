@@ -4,8 +4,11 @@ import * as schema from "./schema";
 
 export const tables = schema
 
+const runtimeConfig = useRuntimeConfig()
+
 export const useDb = () => {
+  console.log('runtimeConfig', runtimeConfig.env.DATABASE_URL)
   return drizzle({
-    connection: { uri: process.env.DATABASE_URL as string },
+    connection: { uri: runtimeConfig.env.DATABASE_URL as string },
   });
 }

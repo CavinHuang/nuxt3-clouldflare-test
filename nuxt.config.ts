@@ -14,4 +14,10 @@ export default defineNuxtConfig({
       external: ["cloudflare:sockets"],
     },
   },
+
+  runtimeConfig: {
+    env: {
+      DATABASE_URL: process.env.DATABASE_URL
+    },
+  }
 })
